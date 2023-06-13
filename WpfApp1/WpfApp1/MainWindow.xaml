@@ -12,6 +12,7 @@
         <TextBox x:Name="password" HorizontalAlignment="Left" Height="23" Margin="324,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
         <CheckBox x:Name="ch" HorizontalAlignment="Left" Margin="464,163,0,0" VerticalAlignment="Top" Click="ChechClick"/>
         <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="324,163,0,0" VerticalAlignment="Top" Width="120" Height="23"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="551,214,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
