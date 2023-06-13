@@ -13,5 +13,7 @@ namespace WpfApp1
     /// </summary>
     public partial class App : Application
     {
+        public static desKEBEntities DB = new desKEBEntities();
+        public static user USES = new user();
     }
 }

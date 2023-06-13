@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище desKEBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="pract_voprs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_predmet" Type="int" Nullable="false" />
+    <Property Name="pr_vopr" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="predmets">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="rols">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="teor_voprs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_predmet" Type="int" Nullable="false" />
+    <Property Name="te_vopr" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fio" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="parol" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="id_rol" Type="int" Nullable="false" />
+    <Property Name="id_predmet" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_pract_voprs_predmets">
+    <End Role="predmets" Type="Self.predmets" Multiplicity="1" />
+    <End Role="pract_voprs" Type="Self.pract_voprs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="predmets">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pract_voprs">
+        <PropertyRef Name="id_predmet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_teor_voprs_predmets">
+    <End Role="predmets" Type="Self.predmets" Multiplicity="1" />
+    <End Role="teor_voprs" Type="Self.teor_voprs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="predmets">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="teor_voprs">
+        <PropertyRef Name="id_predmet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_predmets">
+    <End Role="predmets" Type="Self.predmets" Multiplicity="1" />
+    <End Role="user" Type="Self.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="predmets">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="id_predmet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_rols">
+    <End Role="rols" Type="Self.rols" Multiplicity="1" />
+    <End Role="user" Type="Self.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rols">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="id_rol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище desKEBModelContainer">
+    <EntitySet Name="pract_voprs" EntityType="Self.pract_voprs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="predmets" EntityType="Self.predmets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rols" EntityType="Self.rols" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="teor_voprs" EntityType="Self.teor_voprs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_pract_voprs_predmets" Association="Self.FK_pract_voprs_predmets">
+      <End Role="predmets" EntitySet="predmets" />
+      <End Role="pract_voprs" EntitySet="pract_voprs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_teor_voprs_predmets" Association="Self.FK_teor_voprs_predmets">
+      <End Role="predmets" EntitySet="predmets" />
+      <End Role="teor_voprs" EntitySet="teor_voprs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_predmets" Association="Self.FK_user_predmets">
+      <End Role="predmets" EntitySet="predmets" />
+      <End Role="user" EntitySet="user" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_rols" Association="Self.FK_user_rols">
+      <End Role="rols" EntitySet="rols" />
+      <End Role="user" EntitySet="user" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

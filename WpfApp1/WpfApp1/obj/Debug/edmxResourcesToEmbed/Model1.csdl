@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="desKEBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="pract_voprs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_predmet" Type="Int32" Nullable="false" />
+    <Property Name="pr_vopr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="predmets" Relationship="Self.FK_pract_voprs_predmets" FromRole="pract_voprs" ToRole="predmets" />
+  </EntityType>
+  <EntityType Name="predmets">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="pract_voprs" Relationship="Self.FK_pract_voprs_predmets" FromRole="predmets" ToRole="pract_voprs" />
+    <NavigationProperty Name="teor_voprs" Relationship="Self.FK_teor_voprs_predmets" FromRole="predmets" ToRole="teor_voprs" />
+    <NavigationProperty Name="user" Relationship="Self.FK_user_predmets" FromRole="predmets" ToRole="user" />
+  </EntityType>
+  <EntityType Name="rols">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="user" Relationship="Self.FK_user_rols" FromRole="rols" ToRole="user" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="teor_voprs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_predmet" Type="Int32" Nullable="false" />
+    <Property Name="te_vopr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="predmets" Relationship="Self.FK_teor_voprs_predmets" FromRole="teor_voprs" ToRole="predmets" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="parol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="id_rol" Type="Int32" Nullable="false" />
+    <Property Name="id_predmet" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="predmets" Relationship="Self.FK_user_predmets" FromRole="user" ToRole="predmets" />
+    <NavigationProperty Name="rols" Relationship="Self.FK_user_rols" FromRole="user" ToRole="rols" />
+  </EntityType>
+  <Association Name="FK_pract_voprs_predmets">
+    <End Role="predmets" Type="Self.predmets" Multiplicity="1" />
+    <End Role="pract_voprs" Type="Self.pract_voprs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="predmets">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pract_voprs">
+        <PropertyRef Name="id_predmet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_teor_voprs_predmets">
+    <End Role="predmets" Type="Self.predmets" Multiplicity="1" />
+    <End Role="teor_voprs" Type="Self.teor_voprs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="predmets">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="teor_voprs">
+        <PropertyRef Name="id_predmet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_predmets">
+    <End Role="predmets" Type="Self.predmets" Multiplicity="1" />
+    <End Role="user" Type="Self.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="predmets">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="id_predmet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_rols">
+    <End Role="rols" Type="Self.rols" Multiplicity="1" />
+    <End Role="user" Type="Self.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rols">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="id_rol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="desKEBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="pract_voprs" EntityType="Self.pract_voprs" />
+    <EntitySet Name="predmets" EntityType="Self.predmets" />
+    <EntitySet Name="rols" EntityType="Self.rols" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="teor_voprs" EntityType="Self.teor_voprs" />
+    <EntitySet Name="user" EntityType="Self.user" />
+    <AssociationSet Name="FK_pract_voprs_predmets" Association="Self.FK_pract_voprs_predmets">
+      <End Role="predmets" EntitySet="predmets" />
+      <End Role="pract_voprs" EntitySet="pract_voprs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_teor_voprs_predmets" Association="Self.FK_teor_voprs_predmets">
+      <End Role="predmets" EntitySet="predmets" />
+      <End Role="teor_voprs" EntitySet="teor_voprs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_predmets" Association="Self.FK_user_predmets">
+      <End Role="predmets" EntitySet="predmets" />
+      <End Role="user" EntitySet="user" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_rols" Association="Self.FK_user_rols">
+      <End Role="rols" EntitySet="rols" />
+      <End Role="user" EntitySet="user" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

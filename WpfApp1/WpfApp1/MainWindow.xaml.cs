@@ -24,5 +24,49 @@ namespace WpfApp1
         {
             InitializeComponent();
         }
+
+        public string strP = "";
+        private void ChechClick(object sender, RoutedEventArgs e)
+        {
+            if (ch.IsChecked == true)
+            {
+                password.Text = passwordBox.Password;
+                passwordBox.Visibility = Visibility.Hidden;
+                password.Visibility = Visibility.Visible;
+                strP = password.Text;
+            }
+            else
+            {
+                passwordBox.Password = password.Text;
+                passwordBox.Visibility = Visibility.Visible;
+                password.Visibility = Visibility.Hidden;
+                strP = passwordBox.Password;
+
+            }
+        }
+
+        private void NextClick(object sender, RoutedEventArgs e)
+        {
+            if(strP.Trim() != "") { strP = passwordBox.Password; }
+            if (login.Text.Trim() != ""  && strP.Trim() != "")
+            {
+                var Au = App.DB.user.Where(p => p.login == login.Text && p.parol == strP).FirstOrDefault();
+                if (Au != null)
+                {
+                    App.USES = Au;
+                    Window1 window = new Window1();
+                    window.Show();
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("пользователь не найден");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Заполнены не все поля");
+            }
+        }
     }
 }

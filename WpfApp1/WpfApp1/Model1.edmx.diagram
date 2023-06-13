@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ffabf5d910e8477d8a685ea8ba889b72" Name="Diagram1">
+        <EntityTypeShape EntityType="desKEBModel.pract_voprs" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="desKEBModel.predmets" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="desKEBModel.rols" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="desKEBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="desKEBModel.teor_voprs" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="desKEBModel.user" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="desKEBModel.FK_pract_voprs_predmets" ManuallyRouted="false" />
+        <AssociationConnector Association="desKEBModel.FK_teor_voprs_predmets" ManuallyRouted="false" />
+        <AssociationConnector Association="desKEBModel.FK_user_predmets" ManuallyRouted="false" />
+        <AssociationConnector Association="desKEBModel.FK_user_rols" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
